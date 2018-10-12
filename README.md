@@ -26,6 +26,7 @@ Build something awesome
   - A Todo application
   - The game of chess
  - We will take a look at initial drafts of the web application that you have chosen to build and comment on the feasibility of your project idea and return with comments
+ - Be sure to start this project and add all of the people in your group to the same repository
  
 ## Part II
  
