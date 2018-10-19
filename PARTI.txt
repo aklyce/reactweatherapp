@@ -1,0 +1,5 @@
+Group members: Diana Tai, Jeremy Ou, Richard Ding
+
+Project idea: We want to build a weather app that displays a 5-day forecast. We will pull weather data from https://openweathermap.org/. The weather of each day will be represented by a React Component which contains the temperature of that day as well as an image representing the weather (sunny/cloudy/rainy, etc).
+
+ 
