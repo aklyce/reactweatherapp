@@ -2,29 +2,34 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
+import WeatherCard from "./WeatherCard.js"
 
 class CityForm extends React.Component {
  constructor(props) {
   super(props);
-  this.state = {city: 'berkeley', temp: 0, 
-                lon:0, lat: 0, 
-                temp_min: 0, temp_max : 0,
-                humidity : 0};
+  this.state = {"city": "berkeley", "weatherInfo": []};
   this.handleInputChange = this.handleInputChange.bind(this);
  }
 
  getWeather(city) {
    let that = this;
-   fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e037ca3eda432f477d3b985e6c2a8437`)
+   fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e037ca3eda432f477d3b985e6c2a8437`)
     .then(function (response) {
        return response.json();
      }).then(function (result) {
-       that.setState({"temp":result.main.temp - 273.15, "city":city})
-       that.setState({"lon":result.coord.lon, "city":city})
-       that.setState({"lat":result.coord.lat, "city":city})
-       that.setState({"temp_min":result.main.temp_min - 273.15, "city":city})
-       that.setState({"temp_max":result.main.temp_max - 273.15, "city":city})
-       that.setState({"humidity":result.main.humidity, "city":city})
+      let forecast = [];
+      var i;
+      for (i = 0; i < 5; i += 1) {
+        day = {
+          "date": result.list.dt_txt,
+          "picture": "./sunny.png",
+          "temp_min": result.list.main.temp_min,
+          "temp_max": result.list.main.temp_max
+        };
+        forecast.push(day)
+
+      }
+      that.setState({"city": result.city.name, "weatherInfo": forecast})
      });
  }
 
@@ -32,10 +37,26 @@ class CityForm extends React.Component {
    this.getWeather(this.state.city);
  }
  handleInputChange(event) {
+    console.log("handle input change");
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.getWeather(value);
+  }
+
+  renderCardComponents() {
+    console.log(this.state.weatherInfo);
+    return (<div>{this.state.weatherInfo}</div>);
+      // return Object.values(this.state.weatherInfo).map((day, index) => {
+      //             return (
+      //                 <WeatherCard 
+      //                   date={day.date}
+      //                   pic={day.picture}
+      //                   high={day.temp_max}
+      //                   low={day.temp_min}/>
+
+      //             );
+      //         });
   }
  
   render() {
@@ -56,17 +77,12 @@ class CityForm extends React.Component {
       </div>
     </label>
    </form>
-   {/* <div>The temperature (in celsius) of {this.state.city} is {this.state.temp}</div> */}
-   <div className = "OutputWeather">
-         <div>The coordinates of {this.state.city} is ({this.state.lon}, {this.state.lat})</div>
-         <div className = "Lowest">The lowest temperature(in celsius) of {this.state.city} is {this.state.temp_min}</div> 
-         <div className = "Highest">The highest temperature(in celsius) of {this.state.city} is {this.state.temp_max}</div> 
-         <div>The humidity of {this.state.city} is {this.state.humidity}</div>     
-         </div>     
+   {this.renderCardComponents()}
    </div>
   );
  }
 }
+
 ReactDOM.render(
  <CityForm />,
  document.getElementById('root')

@@ -7,7 +7,7 @@ class WeatherCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            day: this.props.day,
+            date: this.props.date,
             picture: this.props.picture,
             high: this.props.high,
             low: this.props.low
@@ -17,8 +17,7 @@ class WeatherCard extends React.Component {
     render() {
         return (
             <div>
-                <div className="day">{this.state.day}</div>
-                <div className="pic">{this.state.picture}</div>
+                <div className="date">{this.state.date}</div>
                 <div className="high">{this.state.high}</div>
                 <div className="low">{this.state.low}</div>
             </div>
@@ -26,3 +25,4 @@ class WeatherCard extends React.Component {
     }
 }
 
+export default WeatherCard;
