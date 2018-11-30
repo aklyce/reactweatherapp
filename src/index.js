@@ -12,16 +12,15 @@ class CityForm extends React.Component {
  }
 
  getWeather(city) {
-    console.log("get weather");
    let that = this;
    fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e037ca3eda432f477d3b985e6c2a8437`)
     .then(function (response) {
        return response.json();
      }).then(function (result) {
-      let forecast = [];
+      const forecast = [];
       var i;
       for (i = 0; i < 5; i += 1) {
-        let day = {
+        const day = {
           "date": result.list[i].dt_txt,
           "picture": "./sunny.png",
           "temp_min": result.list[i].main.temp_min,
@@ -30,7 +29,10 @@ class CityForm extends React.Component {
         forecast.push(day);
 
       }
-      that.setState({"city": result.city.name, "weatherInfo": forecast})
+      // that.setState({"city": city, "weatherInfo": forecast})
+      that.setState((prevState, props) => {
+        return {"city": city, "weatherInfo": forecast};
+      })
      });
  }
 
@@ -38,7 +40,6 @@ class CityForm extends React.Component {
    this.getWeather(this.state.city);
  }
  handleInputChange(event) {
-    console.log("handle input change");
     const target = event.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
@@ -46,8 +47,6 @@ class CityForm extends React.Component {
   }
 
   renderCardComponents() {
-    console.log(this.state.weatherInfo);
-    // return (<div>{this.state.weatherInfo}</div>);
       return Object.values(this.state.weatherInfo).map((day, index) => {
                   return (
                     <div className="weatherCard" key={index}>
@@ -63,26 +62,26 @@ class CityForm extends React.Component {
   }
  
   render() {
-  return (
-   <div className = "FormMain">
-   <form>
-    <label>
-     <div className = "selector">
-     City:  
-     <select
-       name="city"
-       value={this.state.city}
-       onChange={this.handleInputChange}>
-       <option value="berkeley">Berkeley, CA</option>
-       <option value="manhattan">New York, NY</option>
-       <option value="chicago">Chicago, IL</option>
-     </select>
-      </div>
-    </label>
-   </form>
-   {this.renderCardComponents()}
-   </div>
-  );
+      return (
+       <div className = "FormMain">
+       <form>
+        <label>
+         <div className = "selector">
+         City:  
+         <select
+           name="city"
+           value={this.state.city}
+           onChange={this.handleInputChange}>
+           <option value="berkeley">Berkeley, CA</option>
+           <option value="manhattan">New York, NY</option>
+           <option value="chicago">Chicago, IL</option>
+         </select>
+          </div>
+        </label>
+       </form>
+       {this.renderCardComponents()}
+       </div>
+      );
  }
 }
 
