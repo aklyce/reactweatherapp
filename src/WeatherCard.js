@@ -7,6 +7,7 @@ class WeatherCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            dayOfWeek: this.props.dayOfWeek,
             date: this.props.date,
             picture: this.props.picture,
             high: this.props.high,
@@ -17,9 +18,11 @@ class WeatherCard extends React.Component {
     render() {
         return (
             <div className="card">
+                <div className="dayOfWeek">{this.props.dayOfWeek}</div>
                 <div className="date">{this.props.date}</div>
-                <div className="high">high: {this.props.high}</div>
-                <div className="low">low: {this.props.low}</div>
+                <div className="picture"><img src={this.props.picture} height="100" width="100"/></div>
+                <div className="high">High: {this.props.high} &#176;F</div>
+                <div className="low">Low: {this.props.low} &#176;F</div>
             </div>
         );
     }

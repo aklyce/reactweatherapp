@@ -12,30 +12,43 @@ class CityForm extends React.Component {
  }
 
  getWeather(city) {
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
    let that = this;
-   fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e037ca3eda432f477d3b985e6c2a8437`)
+   fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=e037ca3eda432f477d3b985e6c2a8437`)
     .then(function (response) {
        return response.json();
      }).then(function (result) {
       var forecast = [];
       var i;
-      for (i = 0; i < 5; i += 1) {
-        var min = (parseInt(result.list[i].main.temp_min) * 9/5) - 459.67
-        var max = (parseInt(result.list[i].main.temp_max) * 9/5) - 459.67
+      for (i = 0; i < result.list.length; i += 8) {
+        var min = Number(result.list[i].main.temp_min);
+        var max = Number(result.list[i].main.temp_max);
+        var description = result.list[i].weather[0].description;
+        var icon = "./weatherImages/cloud.png";
+        if (description.includes("rain")) {
+            icon = "./weatherImages/rainy.png";
+        } else if (description.includes("cloud")) {
+            icon = "./weatherImages/cloudy.png";
+        } else if (description.includes("sun")) {
+          icon = "./weatherImages/sun.png";
+        }
+        var date = result.list[i].dt_txt
+        var dateObj = new Date(date);
         var day = {
-          "date": result.list[i].dt_txt,
-          "picture": "./sunny.png",
+          "dayOfWeek": dayNames[dateObj.getDay()],
+          "date": date.split(" ")[0],
+          "picture": icon,
           "temp_min": min.toFixed(1),
           "temp_max": max.toFixed(1)
         };
         forecast.push(day);
 
       }
-      // that.setState({"city": city, "weatherInfo": forecast})
-      that.setState((prevState, props) => {
-        return {"city": city, "weatherInfo": forecast};
-      })
+      that.setState({"city": city, "weatherInfo": forecast})
      });
+ }
+ loadCities() {
+
  }
 
  componentDidMount() {
@@ -51,41 +64,69 @@ class CityForm extends React.Component {
   renderCardComponents() {
       return Object.values(this.state.weatherInfo).map((day, index) => {
                   return (
+                    <div class="col">
                     <div className="weatherCard" key={index}>
-                      <WeatherCard 
+                      <WeatherCard
+                        dayOfWeek={day.dayOfWeek}
                         date={day.date}
-                        pic={day.picture}
+                        picture={day.picture}
                         high={day.temp_max}
                         low={day.temp_min}/>
+                    </div>
                     </div>
                   );
               });
   }
+
+  renderOptions() {
+    var cities = require('./cities.json');
+    return Object.values(cities).map((city, index) => {
+            return (
+                <option value={city} key={index}>{this.titleCase(city)}</option>
+            );
+        });
+  }
+
+  titleCase(str) {
+   var splitStr = str.toLowerCase().split(' ');
+   for (var i = 0; i < splitStr.length; i++) {
+       splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+   }
+   return splitStr.join(' '); 
+}
  
   render() {
-      return (
-       <div className = "FormMain">
-       <form>
-        <label>
-         <div className = "selector">
-         City:  
-         <select
-           name="city"
-           value={this.state.city}
-           onChange={this.handleInputChange}>
-           <option value="berkeley">Berkeley, CA</option>
-           <option value="manhattan">New York, NY</option>
-           <option value="chicago">Chicago, IL</option>
-         </select>
+    return (
+      <div class="p-5">
+        <center>
+          <div class="w-80 p-3">
+            <div class="jumbotron">
+              <h1 class="display-4">Weather</h1>
+              <h3 class="display-6">{this.titleCase(this.state.city)}</h3>
+              <hr class="my-4" />
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="d-flex justify-content-center">
+                      <form>
+                        <select class="custom-select" name="city" onChange={this.handleInputChange}>
+                          <option selected>Select city</option>
+                          {this.renderOptions()}
+                        </select>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    {this.renderCardComponents()}
+                </div>
+              </div>
+            </div>
           </div>
-        </label>
-       </form>
-       <div className="cardHolder">
-        {this.renderCardComponents()}
-        </div>
-       </div>
-      );
- }
+        </center>
+      </div>
+    );
+  }
 }
 
 ReactDOM.render(
