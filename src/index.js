@@ -29,7 +29,7 @@ class CityForm extends React.Component {
             icon = "./weatherImages/rainy.png";
         } else if (description.includes("cloud")) {
             icon = "./weatherImages/cloudy.png";
-        } else if (description.includes("sun")) {
+        } else if (description.includes("sun") || description.includes("clear")) {
           icon = "./weatherImages/sun.png";
         }
         var date = result.list[i].dt_txt
