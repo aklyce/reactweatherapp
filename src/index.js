@@ -17,14 +17,16 @@ class CityForm extends React.Component {
     .then(function (response) {
        return response.json();
      }).then(function (result) {
-      const forecast = [];
+      var forecast = [];
       var i;
       for (i = 0; i < 5; i += 1) {
-        const day = {
+        var min = (parseInt(result.list[i].main.temp_min) * 9/5) - 459.67
+        var max = (parseInt(result.list[i].main.temp_max) * 9/5) - 459.67
+        var day = {
           "date": result.list[i].dt_txt,
           "picture": "./sunny.png",
-          "temp_min": result.list[i].main.temp_min,
-          "temp_max": result.list[i].main.temp_max
+          "temp_min": min.toFixed(1),
+          "temp_max": max.toFixed(1)
         };
         forecast.push(day);
 
