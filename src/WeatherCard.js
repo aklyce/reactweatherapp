@@ -16,7 +16,7 @@ class WeatherCard extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="card">
                 <div className="date">{this.props.date}</div>
                 <div className="high">high: {this.props.high}</div>
                 <div className="low">low: {this.props.low}</div>

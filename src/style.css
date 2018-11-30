@@ -16,3 +16,12 @@ body {
   border: 2px solid #FFF;
   width: 165px;
 }
+
+.cardHolder {
+  display: flex;
+
+}
+
+.weatherCard {
+  margin: 10px;
+}

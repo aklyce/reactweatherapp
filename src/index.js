@@ -58,7 +58,6 @@ class CityForm extends React.Component {
                         high={day.temp_max}
                         low={day.temp_min}/>
                     </div>
-
                   );
               });
   }
@@ -81,7 +80,9 @@ class CityForm extends React.Component {
           </div>
         </label>
        </form>
-       {this.renderCardComponents()}
+       <div className="cardHolder">
+        {this.renderCardComponents()}
+        </div>
        </div>
       );
  }
