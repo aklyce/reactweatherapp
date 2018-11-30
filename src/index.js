@@ -79,7 +79,7 @@ class CityForm extends React.Component {
   }
 
   renderOptions() {
-    var cities = require('./cities.json');
+    var cities = require('./cities.json').sort();
     return Object.values(cities).map((city, index) => {
             return (
                 <option value={city} key={index}>{this.titleCase(city)}</option>
