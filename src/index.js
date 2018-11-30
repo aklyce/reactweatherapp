@@ -47,9 +47,6 @@ class CityForm extends React.Component {
       that.setState({"city": city, "weatherInfo": forecast})
      });
  }
- loadCities() {
-
- }
 
  componentDidMount() {
    this.getWeather(this.state.city);
