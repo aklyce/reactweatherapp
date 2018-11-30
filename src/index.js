@@ -12,6 +12,7 @@ class CityForm extends React.Component {
  }
 
  getWeather(city) {
+    console.log("get weather");
    let that = this;
    fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e037ca3eda432f477d3b985e6c2a8437`)
     .then(function (response) {
@@ -20,13 +21,13 @@ class CityForm extends React.Component {
       let forecast = [];
       var i;
       for (i = 0; i < 5; i += 1) {
-        day = {
-          "date": result.list.dt_txt,
+        let day = {
+          "date": result.list[i].dt_txt,
           "picture": "./sunny.png",
-          "temp_min": result.list.main.temp_min,
-          "temp_max": result.list.main.temp_max
+          "temp_min": result.list[i].main.temp_min,
+          "temp_max": result.list[i].main.temp_max
         };
-        forecast.push(day)
+        forecast.push(day);
 
       }
       that.setState({"city": result.city.name, "weatherInfo": forecast})
@@ -46,17 +47,19 @@ class CityForm extends React.Component {
 
   renderCardComponents() {
     console.log(this.state.weatherInfo);
-    return (<div>{this.state.weatherInfo}</div>);
-      // return Object.values(this.state.weatherInfo).map((day, index) => {
-      //             return (
-      //                 <WeatherCard 
-      //                   date={day.date}
-      //                   pic={day.picture}
-      //                   high={day.temp_max}
-      //                   low={day.temp_min}/>
+    // return (<div>{this.state.weatherInfo}</div>);
+      return Object.values(this.state.weatherInfo).map((day, index) => {
+                  return (
+                    <div className="weatherCard" key={index}>
+                      <WeatherCard 
+                        date={day.date}
+                        pic={day.picture}
+                        high={day.temp_max}
+                        low={day.temp_min}/>
+                    </div>
 
-      //             );
-      //         });
+                  );
+              });
   }
  
   render() {
