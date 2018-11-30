@@ -22,7 +22,7 @@ class CityForm extends React.Component {
       var i;
       for (i = 0; i < result.list.length; i += 8) {
         var min = Number(result.list[i].main.temp_min);
-        var max = Number(result.list[i].main.temp_max);
+        var max = Number(result.list[i].main.temp_max) + 3.4;
         var description = result.list[i].weather[0].description;
         var icon = "./weatherImages/cloud.png";
         if (description.includes("rain")) {
