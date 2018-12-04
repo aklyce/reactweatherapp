@@ -79,7 +79,6 @@ class Item extends React.Component {
             return (
                 <li >
                 {this.props.weatherState}: {this.props.activities}
-                {realweather}
                 </li>
             );
         }else{
