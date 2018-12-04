@@ -25,12 +25,16 @@ class CityForm extends React.Component {
         var max = Number(result.list[i].main.temp_max) + 3.4;
         var description = result.list[i].weather[0].description;
         var icon = "./weatherImages/cloud.png";
+        var weather = "Sunny";
         if (description.includes("rain")) {
             icon = "./weatherImages/rainy.png";
+            weather = "Rainy";
         } else if (description.includes("cloud")) {
             icon = "./weatherImages/cloudy.png";
+            weather = "Cloudy";
         } else if (description.includes("sun") || description.includes("clear")) {
-          icon = "./weatherImages/sun.png";
+            icon = "./weatherImages/sun.png";
+            weather = "Sunny";
         }
         var date = result.list[i].dt_txt
         var dateObj = new Date(date);
@@ -39,7 +43,8 @@ class CityForm extends React.Component {
           "date": date.split(" ")[0],
           "picture": icon,
           "temp_min": min.toFixed(1),
-          "temp_max": max.toFixed(1)
+          "temp_max": max.toFixed(1),
+          "weather": weather
         };
         forecast.push(day);
 
@@ -68,7 +73,8 @@ class CityForm extends React.Component {
                         date={day.date}
                         picture={day.picture}
                         high={day.temp_max}
-                        low={day.temp_min}/>
+                        low={day.temp_min}
+                        weather = {day.weather}/>
                     </div>
                     </div>
                   );

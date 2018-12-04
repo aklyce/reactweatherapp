@@ -1,0 +1,16 @@
+{
+    "weathers" : {
+      "Sunny" : {
+        "course_number" : "Sunny",
+        "activities" : "Go Hiking!"
+      },
+      "Rainy" : {
+        "course_number" : "Raining",
+        "activities" : "Bring Your Umbrella"
+      },
+      "Cloudy" : {
+        "course_number" : "Cloudy",
+        "activities" : "Write Code"
+      }
+    }
+   }
