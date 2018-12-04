@@ -46,7 +46,7 @@ class WeatherCard extends React.Component {
       }
     render() {
         const rsvpItems = this.state.weathers.map((rsvp) =>
-        <Item key={rsvp.id} id={rsvp.id} weatherState={rsvp.weatherState}  realweather = {this.state.weather} activities={rsvp.activities} />
+        <Item key={rsvp.id} id={rsvp.id} weatherState={rsvp.weatherState}  realweather = {this.props.weather} activities={rsvp.activities} />
         );
         return (
             <div className="card" onClick={this.handleClick}>
@@ -71,7 +71,6 @@ class Item extends React.Component {
       super(props);
   
     }
-  
   
     render() {
         let realweather = this.props.realweather
