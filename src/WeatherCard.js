@@ -14,6 +14,8 @@ class WeatherCard extends React.Component {
             picture: this.props.picture,
             high: this.props.high,
             low: this.props.low,
+            humidity: this.props.humidity,
+            windspeed: this.props.windspeed,
             weather: this.props.weather,
             details: false,
             weatherState : '',
@@ -54,11 +56,15 @@ class WeatherCard extends React.Component {
 
     render() {
         var u = "";
+        var wu = "";
         if (this.props.unit == "imperial") {
             u = "F";
+            wu = "mph"
         } else {
             u = "C";
+            wu = "m/s"
         }
+
         var show = "none";
         if (this.state.details) {
             show = ""
@@ -71,16 +77,21 @@ class WeatherCard extends React.Component {
                 <div className="dayOfWeek">{this.props.dayOfWeek}</div>
                 <div className="date">{this.props.date}</div>
                 <div className="picture"><img src={this.props.picture} height="100" width="100"/></div>
-                <div className="high">High: {this.props.high} &#176;{u}</div>
-                <div className="low">Low: {this.props.low} &#176;{u}</div>
+                <div className="items">
+                <div className="high"><span className="item">HIGH</span> {this.props.high} &#176;{u}</div>
+                <div className="low"><span className="item">LOW</span> {this.props.low} &#176;{u}</div>
+                <div className="humidity"><span className="item">HUMIDITY</span> {this.props.humidity}</div>
+                <div className="low"><span className="item">WIND</span> {this.props.windspeed} {wu}</div>
+                </div>
 
                 <div>
                 <p>
-                  <button class="btn btn-secondary btn-sm details" type="button" onClick={this.showDetails}>Show more</button>
+                  <button class="btn btn-secondary btn-sm details" type="button" onClick={this.showDetails}>Activities</button>
                 </p>
                 <div class="details" style={{display: show}}>
-                    <div className = "activitiesCard">
-                        Suggested activities: {rsvpItems}
+
+                    <div className = "activities">
+                        {rsvpItems}
                     </div>
                 </div>
                 </div>

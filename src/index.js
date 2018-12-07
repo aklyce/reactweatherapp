@@ -26,6 +26,8 @@ class CityForm extends React.Component {
       for (i = 0; i < result.list.length; i += 8) {
         var min = Number(result.list[i].main.temp_min);
         var max = Number(result.list[i].main.temp_max) + 3.4;
+        var humidity = result.list[i].main.humidity;
+        var windspeed = result.list[i].wind.speed;
         var description = result.list[i].weather[0].description;
         var icon = "./weatherImages/cloud.png";
         var weather = "Sunny";
@@ -47,6 +49,8 @@ class CityForm extends React.Component {
           "picture": icon,
           "temp_min": min.toFixed(1),
           "temp_max": max.toFixed(1),
+          "humidity": humidity,
+          "windspeed": windspeed,
           "weather": weather
         };
         forecast.push(day);
@@ -79,6 +83,8 @@ class CityForm extends React.Component {
       for (i = 0; i < result.list.length; i += 8) {
         var min = Number(result.list[i].main.temp_min);
         var max = Number(result.list[i].main.temp_max) + 3.4;
+        var humidity = result.list[i].main.humidity;
+        var windspeed = result.list[i].wind.speed;
         var description = result.list[i].weather[0].description;
         var main = result.list[i].weather[0].main;
         var icon = "./weatherImages/cloud.png";
@@ -99,13 +105,16 @@ class CityForm extends React.Component {
         }
         var date = result.list[i].dt_txt
         var dateObj = new Date(date);
+        var hour = dateObj.getHour();
         var day = {
           "dayOfWeek": dayNames[dateObj.getDay()],
           "date": date.split(" ")[0],
           "picture": icon,
           "temp_min": min.toFixed(1),
           "temp_max": max.toFixed(1),
-          "weather": weather
+          "weather": weather,
+          "humidity": humidity,
+          "windspeed": windspeed
         };
         forecast.push(day);
 
@@ -126,6 +135,8 @@ class CityForm extends React.Component {
                         picture={day.picture}
                         high={day.temp_max}
                         low={day.temp_min}
+                        humidity={day.humidity}
+                        windspeed={day.windspeed}
                         weather = {day.weather}
                         unit = {this.state.unit}/>
                     </div>

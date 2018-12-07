@@ -1,6 +1,12 @@
 .jumbotron {
   background-color: #e0f3ff;
 }
+h1 {
+	color: #353637;
+}
+h3 {
+	color: #3E5C76;
+}
 .card {
   display: flex;
   padding: 30px;
@@ -8,15 +14,24 @@
   border: none;
 }
 
+.btn-outline-info:hover {
+	background-color: #3E5C76;
+	border-color: #3E5C76;
+}
+
+.btn-outline-info {
+	color: #3E5C76;
+	border-color: #3E5C76;
+}
 .dayOfWeek {
-  color: #417699;
+  color: #3E5C76;
   font-weight: bold;
 
 }
 .picture {
   padding: 3.5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .weatherCard {
   margin: 10px;
@@ -33,5 +48,22 @@
 }
 
 .details {
-	margin-top: 5px;
+	margin-top: 10px;
+}
+
+.activities {
+	color: #532d3b;
+	font-weight: bold;
+
+}
+
+.item {
+	font-weight: bold;
+	font-size: .9em;
+	color: #3E5C76;
+	margin-top: 3px;
+}
+
+.items {
+	font-size: .9em;
 }
