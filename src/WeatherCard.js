@@ -76,7 +76,7 @@ class WeatherCard extends React.Component {
 
                 <div>
                 <p>
-                  <button class="btn btn-secondary btn-sm details" type="button" onClick={this.showDetails}>Show details</button>
+                  <button class="btn btn-secondary btn-sm details" type="button" onClick={this.showDetails}>Show more</button>
                 </p>
                 <div class="details" style={{display: show}}>
                     <div className = "activitiesCard">

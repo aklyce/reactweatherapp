@@ -15,6 +15,8 @@
 }
 .picture {
   padding: 3.5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .weatherCard {
   margin: 10px;
