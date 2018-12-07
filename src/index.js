@@ -105,7 +105,6 @@ class CityForm extends React.Component {
         }
         var date = result.list[i].dt_txt
         var dateObj = new Date(date);
-        var hour = dateObj.getHour();
         var day = {
           "dayOfWeek": dayNames[dateObj.getDay()],
           "date": date.split(" ")[0],
