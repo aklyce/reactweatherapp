@@ -80,9 +80,14 @@ class CityForm extends React.Component {
         var min = Number(result.list[i].main.temp_min);
         var max = Number(result.list[i].main.temp_max) + 3.4;
         var description = result.list[i].weather[0].description;
+        var main = result.list[i].weather[0].main;
         var icon = "./weatherImages/cloud.png";
-        var weather = "Sunny";
-        if (description.includes("rain")) {
+        var weather = "Cloudy";
+        if (description.includes("snow") || main.includes("Snow")) {
+            console.log("SNOWNEDFNGDFLJKGNSF");
+            icon = "./weatherImages/snowy.png";
+            weather = "Rainy";
+        } else if (description.includes("rain")) {
             icon = "./weatherImages/rainy.png";
             weather = "Rainy";
         } else if (description.includes("cloud")) {
@@ -111,7 +116,6 @@ class CityForm extends React.Component {
   }
 
   renderCardComponents() {
-      console.log(this.state.unit);
       return Object.values(this.state.weatherInfo).map((day, index) => {
                   return (
                     <div class="col">
