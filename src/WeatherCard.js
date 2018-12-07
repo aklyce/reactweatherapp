@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
 import firebase from './firebase.js';
 
+
 class WeatherCard extends React.Component {
     constructor(props) {
         super(props);
@@ -14,12 +15,13 @@ class WeatherCard extends React.Component {
             high: this.props.high,
             low: this.props.low,
             weather: this.props.weather,
-            click: false,
+            details: false,
             weatherState : '',
             activities : '',
             weathers : []
         }
         this.handleClick = this.handleClick.bind(this);
+        this.showDetails = this.showDetails.bind(this);
     }
     handleClick() {
         this.setState(state => ({
@@ -36,7 +38,6 @@ class WeatherCard extends React.Component {
               id: weather,
               weatherState: weathers[weather].weatherState,
               activities: weathers[weather].activities,
-              //weather: this.state.weather
             });
           }
           this.setState({
@@ -44,7 +45,24 @@ class WeatherCard extends React.Component {
           });
         });
       }
+    showDetails() {
+        var newState = this.state;
+        newState.details = !this.state.details;
+        this.setState(newState);
+    }
+
+
     render() {
+        var u = "";
+        if (this.props.unit == "imperial") {
+            u = "F";
+        } else {
+            u = "C";
+        }
+        var show = "none";
+        if (this.state.details) {
+            show = ""
+        }
         const rsvpItems = this.state.weathers.map((rsvp) =>
         <Item key={rsvp.id} id={rsvp.id} weatherState={rsvp.weatherState}  realweather = {this.props.weather} activities={rsvp.activities} />
         );
@@ -53,13 +71,18 @@ class WeatherCard extends React.Component {
                 <div className="dayOfWeek">{this.props.dayOfWeek}</div>
                 <div className="date">{this.props.date}</div>
                 <div className="picture"><img src={this.props.picture} height="100" width="100"/></div>
-                <div className="high">High: {this.props.high} &#176;F</div>
-                <div className="low">Low: {this.props.low} &#176;F</div>
-                <div>{this.state.click? 'ON' : ''}</div>
+                <div className="high">High: {this.props.high} &#176;{u}</div>
+                <div className="low">Low: {this.props.low} &#176;{u}</div>
+
                 <div>
-                <ul>
-                    {rsvpItems}
-                </ul>
+                <p>
+                  <button class="btn btn-secondary btn-sm details" type="button" onClick={this.showDetails}>Show details</button>
+                </p>
+                <div class="details" style={{display: show}}>
+                    <div className = "activitiesCard">
+                        Suggested activities: {rsvpItems}
+                    </div>
+                </div>
                 </div>
             </div>
         );
@@ -76,9 +99,9 @@ class Item extends React.Component {
         let realweather = this.props.realweather
         if (this.props.weatherState == realweather) {
             return (
-                <li >
-                {this.props.weatherState}: {this.props.activities}
-                </li>
+                <div>
+                {this.props.activities}
+                </div>
             );
         }else{
             return null;

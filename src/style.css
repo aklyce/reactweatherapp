@@ -19,3 +19,17 @@
 .weatherCard {
   margin: 10px;
 }
+
+.unit {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.custom-select {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.details {
+	margin-top: 5px;
+}
